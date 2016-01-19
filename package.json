@@ -1,6 +1,6 @@
 {
   "name": "few",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Write asynchronous code in a synchronous fashion",
   "main": "index.js",
   "scripts": {
