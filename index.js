@@ -12,8 +12,12 @@ function isGeneratorFunction(v) {
   return isFunction(v) && v.constructor.name === 'GeneratorFunction';
 }
 
+function isObject(o) {
+  return o instanceof Object;
+}
+
 function isGenerator(v) {
-  return typeof v === 'object' && v !== null && isFunction(v.next) && isFunction(v.throw);
+  return isObject(v) && isFunction(v.next) && isFunction(v.throw);
 }
 
 function thenableToFunction(t) {
@@ -33,6 +37,7 @@ function valueToFunction(v) {
   return isFunction(v) ? v :
       isThenable(v) ? thenableToFunction(v) :
       Array.isArray(v) ? arrayToFunction(v) :
+      isObject(v) ? objectToFunction(v) :
       cb => process.nextTick(() => cb(null, v));
 }
 
@@ -41,6 +46,15 @@ function arrayToFunction(arr) {
       () => new Array(arr.length),
       cb => arr.forEach(cb),
       count => count === arr.length);
+}
+
+
+function objectToFunction(o) {
+  const keys = Object.keys(o);
+  return iterableToFunction(
+      () => ({}),
+      cb => keys.forEach(k => cb(o[k], k)),
+      count => count === keys.length);
 }
 
 function iterableToFunction(createDest, iterate, hasFinished) {
