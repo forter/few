@@ -1,0 +1,14 @@
+{
+  "camelcase": true,
+  "immed": true,
+  "latedef": false,
+  "newcap": true,
+  "nonew": true,
+  "plusplus": true,
+  "quotmark": "single",
+  "varstmt": true,
+  "esnext": true,
+  "browser": false,
+  "devel": false,
+  "node": true
+}

@@ -1,0 +1,26 @@
+{
+  "name": "few",
+  "version": "1.0.0",
+  "description": "Write asynchronous code in a synchronous fashion",
+  "main": "index.js",
+  "scripts": {
+    "test": "tape test/*"
+  },
+  "keywords": [
+    "generator",
+    "es6",
+    "esnext",
+    "promise",
+    "thunk",
+    "flow",
+    "control"
+  ],
+  "repository": "forter/few",
+  "engines": {
+    "node": ">=4.0.0"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "tape": "^4.4.0"
+  }
+}
