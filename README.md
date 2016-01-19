@@ -72,7 +72,7 @@ The yielded object or array may contain any combination of:
 - Initialized generators
 - Simple values, which will be returned as-is
 
-When all given elements have finished processing, a new array that contains the results of the given elements in the same order will be returned.  
+When all given elements have finished processing, a new object or array that contains the results of the given elements in the same order will be returned.  
 If any of the elements provides an error, the error will be thrown inside the generator.
 
 ### Generator Delegation Support

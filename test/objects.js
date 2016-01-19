@@ -41,3 +41,10 @@ test('yielding an object of generators', testObject(
 test('returning an object of values', testObject(
   function* resolving(o) { yield; return o; },
   function* rejecting(o) { yield; throw o.a; }));
+
+test('object keys preserve order', function (t) {
+    t.plan(1);
+    few(function* () {
+        return yield {a: cb => process.nextTick(() => cb(null, 1)), b: cb => cb(null, 2)};
+    }, (err, actual) => t.same(Object.keys(actual), ['a', 'b']));
+});

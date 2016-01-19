@@ -52,7 +52,7 @@ function arrayToFunction(arr) {
 function objectToFunction(o) {
   const keys = Object.keys(o);
   return iterableToFunction(
-      () => ({}),
+      () => Object.assign({}, o),
       cb => keys.forEach(k => cb(o[k], k)),
       count => count === keys.length);
 }
