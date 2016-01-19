@@ -1,4 +1,4 @@
-# few
+# few [![Build Status](https://travis-ci.org/forter/few.svg?branch=master)](https://travis-ci.org/forter/few)
 Write fewer lines of code by turning node-style asynchronous functions and promises to a synchronous code using ES6 generators.
 ## Requirements
 few is an npm module intended to run on node.js 4.0.0 and higher.  
