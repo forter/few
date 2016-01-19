@@ -9,7 +9,6 @@ npm install few
 ```
 ## Example
 ```javascript
-const assert = require('assert');
 const few = require('few');
 
 function returnValue(v, callback) {
@@ -20,6 +19,8 @@ function* generateValue(v) {
   return yield cb => returnValue(v, cb);
 }
 
+// Multiple invocations of few run asynchronously 
+
 few(function* () {
   // Yield or delegate directly
   const a = yield cb => returnValue(1, cb);
@@ -27,6 +28,11 @@ few(function* () {
   const c = yield 3;
   const d = yield* generateValue(4);
 
+  // Prints 1 2 3 4
+  console.log(a, b, c, d);
+});
+
+few(function* () {
   // Parallelize using arrays
   const arr = yield [
     cb => returnValue(1, cb),
@@ -35,6 +41,11 @@ few(function* () {
     generateValue(4)
   ];
 
+  // Prints [ 1, 2, 3, 4 ]
+  console.log(arr);
+});
+
+few(function* () {
   // Parallelize using objects
   const obj = yield {
     a: cb => returnValue(1, cb),
@@ -43,11 +54,9 @@ few(function* () {
     d: generateValue(4)
   };
 
-  // Try it out. It works!
-  assert.deepEqual([a, b, c, d], arr);
-  assert.deepEqual({a, b, c, d}, obj);
+  // Prints { a: 1, b: 2, c: 3, d: 4 }
+  console.log(obj);
 });
-
 ```
 ## Usage
 ### few(genOrFn[, callback])
