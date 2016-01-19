@@ -4,7 +4,7 @@ const test = require('tape');
 
 const few = require('../index');
 
-function testCollection(resolving, rejecting) {
+function testArray(resolving, rejecting) {
   return function (t) {
     const expected = [Symbol(), Symbol()];
     t.plan(2);
@@ -13,17 +13,17 @@ function testCollection(resolving, rejecting) {
   };
 }
 
-test('yielding a collection of promises', testCollection(
+test('yielding a array of promises', testArray(
     function* resolving(c) { return yield [Promise.resolve(c[0]), Promise.resolve(c[1])]; },
     function* rejecting(c) { yield [Promise.reject(c[0]), Promise.resolve(c[1])]; }));
 
 const resolvingFunction = v => cb => process.nextTick(() => cb(null, v));
 const rejectingFunction = v => cb => process.nextTick(() => cb(v));
-test('yielding a collection of functions', testCollection(
+test('yielding a array of functions', testArray(
   function* resolving(c) { return yield [resolvingFunction(c[0]), resolvingFunction(c[1])]; },
   function* rejecting(c) { yield [rejectingFunction(c[0]), resolvingFunction(c[1])]; }));
 
-test('yielding a collection of values', testCollection(
+test('yielding a array of values', testArray(
   function* resolving(c) { return yield c; },
   function* rejecting(c) { throw yield c[0]; }));
 
@@ -33,10 +33,10 @@ function* resolvingGenertor(v) {
 function* rejectingGenertor(v) {
   return yield rejectingFunction(v);
 }
-test('yielding a collection of generators', testCollection(
+test('yielding a array of generators', testArray(
   function* resolving(c) { return yield [resolvingGenertor(c[0]), resolvingGenertor(c[1])]; },
   function* rejecting(c) { yield [rejectingGenertor(c[0]), resolvingGenertor(c[1])]; }));
 
-test('returning a collection of values', testCollection(
+test('returning a array of values', testArray(
   function* resolving(c) { yield; return c; },
   function* rejecting(c) { yield; throw c[0]; }));
