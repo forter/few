@@ -32,24 +32,31 @@ function elementToFunction(e) {
 function valueToFunction(v) {
   return isFunction(v) ? v :
       isThenable(v) ? thenableToFunction(v) :
-      Array.isArray(v) ? collectionToFunction(v) :
+      Array.isArray(v) ? arrayToFunction(v) :
       cb => process.nextTick(() => cb(null, v));
 }
 
-function collectionToFunction(col) {
+function arrayToFunction(arr) {
+  return iterableToFunction(
+      () => new Array(arr.length),
+      cb => arr.forEach(cb),
+      count => count === arr.length);
+}
+
+function iterableToFunction(createDest, iterate, hasFinished) {
   return function (cb) {
-    const values = Array(col.length);
+    const dest = createDest();
     let count = 0;
     let stopIteration = false;
-    col.forEach(function (e, i) {
+    iterate(function (e, i) {
       elementToFunction(e)(function (err, value) {
         if (stopIteration) {
           return;
         }
-        values[i] = value;
+        dest[i] = value;
         count += 1;
-        if (err || count === col.length) {
-          cb(err, values);
+        if (err || hasFinished(count)) {
+          cb(err, dest);
           stopIteration = true;
         }
       });
