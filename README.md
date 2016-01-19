@@ -21,20 +21,33 @@ function* generateValue(v) {
 }
 
 few(function* () {
+  // Yield or delegate directly
   const a = yield cb => returnValue(1, cb);
   const b = yield Promise.resolve(2);
   const c = yield 3;
   const d = yield* generateValue(4);
 
-  const all = yield [
+  // Parallelize using arrays
+  const arr = yield [
     cb => returnValue(1, cb),
     Promise.resolve(2),
     3,
     generateValue(4)
   ];
 
-  assert.deepEqual([a, b, c, d], all);
+  // Parallelize using objects
+  const obj = yield {
+    a: cb => returnValue(1, cb),
+    b: Promise.resolve(2),
+    c: 3,
+    d: generateValue(4)
+  };
+
+  // Try it out. It works!
+  assert.deepEqual([a, b, c, d], arr);
+  assert.deepEqual({a, b, c, d}, obj);
 });
+
 ```
 ## Usage
 ### few(genOrFn[, callback])
@@ -49,10 +62,11 @@ few supports the following types to be yielded:
 - Promises
 - Simple values, which will be returned as-is
 - Arrays combining thunks, promises, generators or simple values to be run in parallel
+- Objects containing thunks, promises, generators or simple values to be run in parallel
 
 ### Parallelization
-few allows parallelization by yielding an array.  
-The array may contain any combination of:
+few allows parallelization by yielding an array or an object.  
+The yielded object or array may contain any combination of:
 - Single node-style callback argument functions (aka thunks)
 - Promises
 - Initialized generators
