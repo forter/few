@@ -6,7 +6,6 @@ This package is continuously tested on all minor versions from node.js 4.0.0 and
 
 Supported browsers:
 - Chrome 39
-- Firefox 44 (currenlty in beta)
 
 ## Installation
 Using npm:
