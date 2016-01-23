@@ -21,6 +21,10 @@
   },
   "license": "MIT",
   "devDependencies": {
-    "tape": "^4.4.0"
+    "tape": "^4.4.0",
+    "vinyl-source-stream": "~1.1.0",
+    "gulp-rename": "~1.2.2",
+    "gulp-inject-string": "~1.1.0",
+    "browserify": "~13.0.0"
   }
 }

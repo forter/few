@@ -1,10 +1,12 @@
 {
   "name": "few",
-  "main": "index.js",
+  "main": "dist/index.browser.js",
   "version": "1.1.0",
   "homepage": "https://github.com/forter/few",
   "authors": [
-    "ori weingart <oweingart@forter.com>"
+    "itay kimia <ikimia@forter.com>",
+    "ori weingart <oweingart@forter.com>",
+    "liron goldenberg <lgoldenberg@forter.com>"
   ],
   "description": "Write asynchronous code in a synchronous fashion",
   "keywords": [

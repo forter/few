@@ -3,10 +3,21 @@ Write fewer lines of code by turning node-style asynchronous functions and promi
 ## Requirements
 few is an npm module intended to run on node.js 4.0.0 and higher.  
 This package is continuously tested on all minor versions from node.js 4.0.0 and higher using Travis CI.
+
+Supported browsers:
+- Chrome 39
+- Firefox 44 (currenlty in beta)
+
 ## Installation
+Using npm:
 ```bash
 npm install few
 ```
+Using bower:
+```bash
+bower install few
+```
+
 ## Example
 ```javascript
 const few = require('few');
@@ -19,7 +30,7 @@ function* generateValue(v) {
   return yield cb => returnValue(v, cb);
 }
 
-// Multiple invocations of few run asynchronously 
+// Multiple invocations of few run asynchronously
 
 few(function* () {
   // Yield or delegate directly
