@@ -1,14 +1,14 @@
 'use strict';
 
-var browserify = require('browserify');
-var rename = require("gulp-rename")
-var gulp = require('gulp');
-var source = require('vinyl-source-stream');
-var inject = require('gulp-inject-string');
-var fs = require("fs");
-var babel = require("gulp-babel");
-var uglify = require('gulp-uglify');
-var sourcemaps = require('gulp-sourcemaps');
+const browserify = require('browserify');
+const rename = require('gulp-rename');
+const gulp = require('gulp');
+const source = require('vinyl-source-stream');
+const inject = require('gulp-inject-string');
+const fs = require('fs');
+const babel = require('gulp-babel');
+const uglify = require('gulp-uglify');
+const sourcemaps = require('gulp-sourcemaps');
 
 /**
  * Move main index.js to dist with babel transform to es2015
@@ -26,7 +26,7 @@ gulp.task('dist', function () {
  * Browserify code
  */
 gulp.task('browserify' ,['dist'], function () {
-  var b = browserify({
+  const b = browserify({
     entries: './dist/index.js',
     standalone: 'few',
     debug: true,
@@ -45,5 +45,5 @@ gulp.task('build' ,['browserify'], function () {
     .pipe(uglify({ preserveComments: 'license' }))
     .pipe(rename({ extname: '.min.js' }))
     .pipe(sourcemaps.write('maps'))
-    .pipe(gulp.dest('./dist/'))
+    .pipe(gulp.dest('./dist/'));
 });
