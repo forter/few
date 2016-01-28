@@ -1,0 +1,23 @@
+{
+  "name": "few",
+  "main": "dist/index.js",
+  "version": "1.1.0",
+  "homepage": "https://github.com/forter/few",
+  "authors": [
+    "itay kimia <ikimia@forter.com>",
+    "ori weingart <oweingart@forter.com>",
+    "liron goldenberg <lgoldenberg@forter.com>"
+  ],
+  "description": "Write asynchronous code in a synchronous fashion",
+  "keywords": [
+    "few"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
