@@ -4,9 +4,6 @@ Write fewer lines of code by turning node-style asynchronous functions and promi
 few is an npm module intended to run on node.js 4.0.0 and higher.  
 This package is continuously tested on all minor versions from node.js 4.0.0 and higher using Travis CI.
 
-Supported browsers:
-- Chrome 39
-
 ## Installation
 Using npm:
 ```bash
@@ -16,6 +13,7 @@ Using bower:
 ```bash
 bower install few
 ```
+Supporting all modern browsers using [Babel](https://babeljs.io/).
 
 ## Example
 ```javascript
