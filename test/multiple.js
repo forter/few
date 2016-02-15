@@ -18,6 +18,14 @@ test('yielding multiple promises', testMultipleValues(
     function* resolving(a, b) { return (yield Promise.resolve(a)) * (yield Promise.resolve(b)); },
     function* rejecting(a, b) { return (yield Promise.reject(a * (yield Promise.resolve(b)))); }));
 
+test('yielding multiple generator functions', testMultipleValues(
+    function* resolving(a, b) { return (yield function* () {return a}) * (yield function* () {return b}); },
+    function* rejecting(a, b) { return (yield function* () {throw (a * (yield function* () {return b}));})}));
+
+test('yielding multiple initiated generator functions', testMultipleValues(
+    function* resolving(a, b) { return (yield function* () {return a}()) * (yield function* () {return b}()); },
+    function* rejecting(a, b) { return (yield function* () {throw (a * (yield function* () {return b}()));}())}));
+
 const resolvingFunction = v => cb => process.nextTick(() => cb(null, v));
 const rejectingFunction = v => cb => process.nextTick(() => cb(v));
 test('yielding multiple functions', testMultipleValues(

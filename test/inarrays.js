@@ -30,3 +30,17 @@ test('yielding an array of values', testArrayInArray(
 test('returning an array of values', testArrayInArray(
   function* resolving(c) { yield; return c; },
   function* rejecting(c) { yield; throw c[0]; }));
+
+function* resolvingGenertor(v) {
+  return yield resolvingFunction(v);
+}
+function* rejectingGenertor(v) {
+  return yield rejectingFunction(v);
+}
+test('yielding an array of generators', testArrayInArray(
+    function* resolving(c) { return yield [resolvingGenertor(c[0]), [resolvingGenertor(c[1][0])]]; },
+    function* rejecting(c) { return yield [[rejectingGenertor(c[0])], [resolvingFunction(c[1][0])]]; }));
+
+test('yielding an array of generator functions', testArrayInArray(
+    function* resolving(c) { return yield [function* () {return yield resolvingGenertor(c[0])}, [function* () {return yield resolvingGenertor(c[1][0])}]]; },
+    function* rejecting(c) { return yield [[function* () {return yield rejectingGenertor(c[0])}], function* () {return yield resolvingFunction(c[1][0])}]; }));
