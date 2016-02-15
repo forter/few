@@ -28,17 +28,14 @@ function generatorToFunction(gen) {
   return cb => advance(gen, cb);
 }
 
-function elementToFunction(e) {
-  return isGenerator(e) ? generatorToFunction(e) :
-      valueToFunction(e);
-}
-
 function valueToFunction(v) {
-  return isFunction(v) ? v :
-      isThenable(v) ? thenableToFunction(v) :
-      Array.isArray(v) ? arrayToFunction(v) :
-      isObject(v) ? objectToFunction(v) :
-      cb => process.nextTick(() => cb(null, v));
+  return isGeneratorFunction(v) ? generatorToFunction(v()) :
+    isFunction(v) ? v :
+      isGenerator(v) ? generatorToFunction(v) :
+        isThenable(v) ? thenableToFunction(v) :
+          Array.isArray(v) ? arrayToFunction(v) :
+            isObject(v) ? objectToFunction(v) :
+              cb => process.nextTick(() => cb(null, v));
 }
 
 function arrayToFunction(arr) {
@@ -63,7 +60,7 @@ function iterableToFunction(createDest, iterate, hasFinished) {
     let count = 0;
     let stopIteration = false;
     iterate(function (e, i) {
-      elementToFunction(e)(function (err, value) {
+      valueToFunction(e)(function (err, value) {
         if (stopIteration) {
           return;
         }

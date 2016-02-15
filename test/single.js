@@ -17,6 +17,18 @@ test('yielding a single promise', testSingleValue(
     function* resolving(v) { return yield Promise.resolve(v); },
     function* rejecting(v) { yield Promise.reject(v); }));
 
+test('yielding a single generator function', testSingleValue(
+    function* resolving(v) { return yield function* (){return v}; },
+    function* rejecting(v) { return yield function* (){throw v}; }));
+
+test('yielding a single initiated generator function', testSingleValue(
+    function* resolving(v) { return yield function* (){return v}(); },
+    function* rejecting(v) { return yield function* (){throw v}(); }));
+
+test('delegating to a single generator function', testSingleValue(
+    function* resolving(v) { return yield* function* (){return v}(); },
+    function* rejecting(v) { return yield* function* (){throw v}(); }));
+
 test('yielding a single function', testSingleValue(
   function* resolving(v) { return yield cb => process.nextTick(() => cb(null, v)); },
   function* rejecting(v) { yield cb => process.nextTick(() => cb(v)); }));

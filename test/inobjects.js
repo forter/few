@@ -38,6 +38,10 @@ test('yielding an object of generators', testObject(
   function* resolving(o) { return yield {a: resolvingGenertor(o.a), b: {c: resolvingGenertor(o.b.c)}}; },
   function* rejecting(o) { yield {a: rejectingGenertor(o.a), b: {c: resolvingGenertor(o.b.c)}}; }));
 
+test('yielding an object of generator functions', testObject(
+  function* resolving(o) { return yield {a: function* () {return yield resolvingGenertor(o.a)}, b: {c: function* () {return yield resolvingGenertor(o.b.c)}}}; },
+  function* rejecting(o) { return yield {a: function* () {return yield rejectingGenertor(o.a)}, b: {c: function* () {return yield resolvingGenertor(o.b.c)}}}; }));
+
 test('returning an object of values', testObject(
   function* resolving(o) { yield; return o; },
   function* rejecting(o) { yield; throw o.a; }));

@@ -17,6 +17,10 @@ test('yielding an object of promises', testObject(
     function* resolving(o) { return yield {a: Promise.resolve(o.a), b: Promise.resolve(o.b)}; },
     function* rejecting(o) { yield {a: Promise.reject(o.a), b: Promise.resolve(o.b)}; }));
 
+test('yielding an object of generator functions', testObject(
+    function* resolving(o) { return yield {a: function* () {return o.a}, b: function* () {return o.b}}; },
+    function* rejecting(o) { return yield {a: function* () {throw o.a}, b: function* () {throw o.b}}; }));
+
 const resolvingFunction = v => cb => process.nextTick(() => cb(null, v));
 const rejectingFunction = v => cb => process.nextTick(() => cb(v));
 
