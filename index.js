@@ -30,8 +30,8 @@ function generatorToFunction(gen) {
 
 function valueToFunction(v) {
   return isGeneratorFunction(v) ? generatorToFunction(v()) :
-    isGenerator(v) ? generatorToFunction(v) :
-      isFunction(v) ? v :
+    isFunction(v) ? v :
+      isGenerator(v) ? generatorToFunction(v) :
         isThenable(v) ? thenableToFunction(v) :
           Array.isArray(v) ? arrayToFunction(v) :
             isObject(v) ? objectToFunction(v) :
