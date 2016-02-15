@@ -34,7 +34,7 @@ few(function* () {
   const a = yield cb => returnValue(1, cb);
   const b = yield Promise.resolve(2);
   const c = yield 3;
-  const d = yield* generateValue(4);
+  const d = yield* generateValue(4);  // yield generateValue(4); Also works
 
   // Prints 1 2 3 4
   console.log(a, b, c, d);
